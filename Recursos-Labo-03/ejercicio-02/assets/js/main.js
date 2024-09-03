@@ -17,58 +17,81 @@ const split = (number1, number2) => {
 };
 const requestNumber = () => {
     //Code
-    console.log('Ingrese un numero: ');
-    let inputfAlias = input;
-    let fAlias = input.value;
+    let fAlias = prompt('Ingrese un número:')
     let fAliasRegex = /^[0-9]+/;
     let aliasResult = fAliasRegex.test(fAlias);
-    
-    return aliasResult;
+
+    if (aliasResult) {
+        return parseInt(fAlias, 10);
+    }
+    else {
+        alert('Entrada no válida, intentar nuevamente.');
+        return requestNumber();
+    }
 
 };
 
 const selectOperation = () => {
     //Code
 
-    console.log('Ingrese una operación:');
-    console.log('1-Suma');
-    console.log('2-Resta');
-    console.log('3-Multiplicacion');
-    console.log('4-División');
-    let respuesta =input.value;
-    return respuesta
+    let mensaje = 'Ingrese una operación:\n';
+    mensaje += '1 - Suma\n';
+    mensaje += '2 - Resta\n';
+    mensaje += '3 - Multiplicación\n';
+    mensaje += '4 - División';
+    let respuesta = prompt(mensaje);
+    return parseInt(respuesta, 10);;
 };
 
 const main = () => {
-    console.log('Menu');
+    
     const number1 = requestNumber();
     const number2 = requestNumber();
 
     const resultOpr = selectOperation();
+    let resultado;
+
+    /* Prueba de depuración en la consola */
+    console.log(`Número 1: ${number1}, Número 2: ${number2}, Operación seleccionada: ${resultOpr}`);
+
+
+    if (isNaN(number1) || isNaN(number2)) {
+        alert('Uno de los números ingresados no es válido.');
+        return;
+    }
 
     switch (resultOpr) {
         case 1:
-            plus(number1, number2);
+            resultado = plus(number1, number2);
+            alert('El resultado de la suma es: ' + resultado);
+
             break;
         case 2:
-            subtract(number1, number2);
+            resultado = subtract(number1, number2);
+            alert('El resultado de la resta es: ' + resultado);
+
             break;
         case 3:
-            multiply(number1, number2);
+            resultado = multiply(number1, number2);
+            alert('El resultado de la multiplicación es: ' + resultado);
+
 
             break;
         case 4:
             if (number2 == 0) {
-                console.log('Imposible realizar acción')
+                alert('No se permite división por 0');
             } else {
-                console.log('El resultado de la división es: ');
-                split(number1 / number2)
+                /* Prueba de depuración en la consola */
+                console.log(`Resultado de la división: ${resultado}`);
+                resultado = split(number1, number2)
+                alert('El resultado de la división es: ' + resultado);
+
             }
 
             break;
 
         default:
-            console.log('Opcion no valida')
+            alert('Opción no válida');
             break;
     }
 }
